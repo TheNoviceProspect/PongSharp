@@ -112,8 +112,8 @@ private const int DEFAULT_WIDTH = 1280;
                     case GameScreen.Gameplay:
                         {
                             _previousScreen = GameScreen.Gameplay;
-                            if (WindowShouldClose() || IsKeyPressed(KeyboardKey.KEY_ESCAPE)) _currentScreen = GameScreen.Ending;
-                            if (IsKeyPressed(KeyboardKey.KEY_ENTER)) _currentScreen = GameScreen.Title;
+                            if (WindowShouldClose() || (IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL) && (IsKeyPressed(KeyboardKey.KEY_Q)))) _currentScreen = GameScreen.Ending;
+                            if (IsKeyPressed(KeyboardKey.KEY_ESCAPE)) _currentScreen = GameScreen.Title;
                         }
                         break;
                     case GameScreen.Ending:
