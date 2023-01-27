@@ -28,6 +28,7 @@ private const int DEFAULT_WIDTH = 1280;
         private const int LOGO_WAIT_TIME = 5;
 
         private static GameScreen _currentScreen = GameScreen.Logo;
+        private static GameScreen _previousScreen = GameScreen.Logo;
         private static Vector2 DefaultScreenDimension = new Vector2(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         private static Vector2 MinScreenDimension = new Vector2(MIN_WIDTH, MIN_HEIGHT);
         private static ulong _frameCounter = 0;
@@ -103,12 +104,14 @@ private const int DEFAULT_WIDTH = 1280;
                         break;
                     case GameScreen.Title:
                         {
+                            _previousScreen = GameScreen.Title;
                             if (WindowShouldClose() || IsKeyPressed(KeyboardKey.KEY_ESCAPE)) _currentScreen = GameScreen.Ending;
                             if (IsKeyPressed(KeyboardKey.KEY_ENTER)) _currentScreen = GameScreen.Gameplay;
                         }
                         break;
                     case GameScreen.Gameplay:
                         {
+                            _previousScreen = GameScreen.Gameplay;
                             if (WindowShouldClose() || IsKeyPressed(KeyboardKey.KEY_ESCAPE)) _currentScreen = GameScreen.Ending;
                             if (IsKeyPressed(KeyboardKey.KEY_ENTER)) _currentScreen = GameScreen.Title;
                         }
@@ -116,7 +119,10 @@ private const int DEFAULT_WIDTH = 1280;
                     case GameScreen.Ending:
                         {
                             if (IsKeyPressed(KeyboardKey.KEY_Y)) callExit = true;
-                            else if (IsKeyPressed(KeyboardKey.KEY_N)) callExit = false;
+                            else if (IsKeyPressed(KeyboardKey.KEY_N)) {
+                                callExit = false;
+                                _currentScreen = _previousScreen;                            
+                            }
                         }
                         break;
                     default:
