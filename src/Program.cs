@@ -25,6 +25,8 @@ namespace PongSharp.App
 private const int DEFAULT_WIDTH = 1280;
         private const int DEFAULT_HEIGHT = 720;
 
+        private const int LOGO_WAIT_TIME = 5;
+
         private static GameScreen _currentScreen = GameScreen.Logo;
         private static Vector2 DefaultScreenDimension = new Vector2(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         private static Vector2 MinScreenDimension = new Vector2(MIN_WIDTH, MIN_HEIGHT);
@@ -93,7 +95,7 @@ private const int DEFAULT_WIDTH = 1280;
                     case GameScreen.Logo:
                         {
                             _frameCounter++;    // Count frames
-                            if (_frameCounter > 120) // <- wait for 2 seconds
+                            if (_frameCounter > LOGO_WAIT_TIME*60) // <- wait for 2 seconds
                             {
                                 _currentScreen = GameScreen.Title;
                             }
