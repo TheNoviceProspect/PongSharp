@@ -43,11 +43,6 @@ private const int DEFAULT_WIDTH = 1280;
             SetExitKey(KeyboardKey.KEY_NULL);
         }
 
-        static int ComputeCountdown() {
-            var result = LOGO_WAIT_TIME - _frameCounter*60;
-            return (int)result;
-        }
-
         static void DrawGameScreen()
         {
             switch (_currentScreen)
@@ -56,7 +51,7 @@ private const int DEFAULT_WIDTH = 1280;
                     {
                         // TODO: Draw LOGO screen here!
                         DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-                        DrawText($"WAIT for {ComputeCountdown()} SECONDS...", 290, 220, 20, GRAY);
+                        DrawText($"WAIT for {LOGO_WAIT_TIME-_frameCounter/60} SECONDS...", 200, 100, 20, WHITE);
                     }
                     break;
                 case GameScreen.Title:
@@ -128,7 +123,7 @@ private const int DEFAULT_WIDTH = 1280;
                         break;
                 }
                 BeginDrawing();
-                ClearBackground(GRAY);
+                ClearBackground(BLACK);
                 DrawGameScreen();
                 EndDrawing();
             }
