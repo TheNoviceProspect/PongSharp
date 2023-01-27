@@ -18,7 +18,6 @@ namespace PongSharp.App
         }
 
         private const string APPMSG_START = "Pong# is starting up ...";
-        private const string APPMSG_WELCOME = "Welcome to RayTest in C#";
         private const int MAX_FPS = 60;
         private const int MIN_WIDTH = 800;
         private const int MIN_HEIGHT =600;
