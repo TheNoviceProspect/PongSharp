@@ -17,7 +17,7 @@ namespace PongSharp.App
             Ending
         }
 
-        private const string APPMSG_START = "RayTest is starting ...";
+        private const string APPMSG_START = "Pong# is starting up ...";
         private const string APPMSG_WELCOME = "Welcome to RayTest in C#";
         private const int MAX_FPS = 60;
         private const int MIN_WIDTH = 800;
@@ -32,8 +32,8 @@ private const int DEFAULT_WIDTH = 1280;
 
         static void initApp()
         {
-            AppLog.SetCustomLogger("RayTest App");
-            TraceLog(TraceLogLevel.LOG_INFO, APPMSG_START);
+            AppLog.SetCustomLogger("<Pong# Logger>");
+            TraceLog(TraceLogLevel.LOG_TRACE, APPMSG_START);
             InitWindow((int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, "Pong#");
             SetWindowMinSize((int)MinScreenDimension.X, (int)MinScreenDimension.Y);
             SetConfigFlags(FLAG_WINDOW_RESIZABLE|FLAG_VSYNC_HINT);
