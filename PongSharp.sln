@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PongSharp.App", "src\PongSharp.App.csproj", "{2D2115F0-1A6F-4FD4-B2F2-02C5D02946F2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PongSharp.Build", "build\PongSharp.Build.csproj", "{19AE834B-137F-4B41-9914-C050FF33970E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19AE834B-137F-4B41-9914-C050FF33970E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19AE834B-137F-4B41-9914-C050FF33970E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D2115F0-1A6F-4FD4-B2F2-02C5D02946F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D2115F0-1A6F-4FD4-B2F2-02C5D02946F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D2115F0-1A6F-4FD4-B2F2-02C5D02946F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
