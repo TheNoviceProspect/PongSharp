@@ -1,17 +1,7 @@
-﻿using Raylib_cs;
-using System.Numerics;
-
-using static Raylib_cs.Raylib;
-using static Raylib_cs.Color;
-using static Raylib_cs.ConfigFlags;
-
-
-namespace PongSharp.App
+﻿namespace PongSharp.App
 {
     class Program
     {
-        
-
         private const string APPMSG_START = "Pong# is starting up ...";
         internal const int MAX_FPS = 60;
         private const int MIN_WIDTH = 800;
@@ -99,7 +89,7 @@ namespace PongSharp.App
                         break;
                 }
                 BeginDrawing();
-                ClearBackground(BLACK);
+                ClearBackground(Color.BLACK);
                 DrawGameScreen();
                 EndDrawing();
             }
