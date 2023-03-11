@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 if [ $# -eq 0 ]; then
     export buildMode="Debug"
+    export runApp=0
 fi
 
 while [ $# -gt 0 ]; do
@@ -9,7 +10,10 @@ while [ $# -gt 0 ]; do
       export buildMode="${2}"
       shift
       ;;
-    --verbose|-v)
+    -run)
+      export runApp=1
+      ;;
+    -verbose)
       export verbose_option=1
       ;;
     *)
@@ -19,4 +23,8 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-dotnet clean -c ${buildMode}; dotnet restore; dotnet build --no-restore -c ${buildMode}; dotnet run -c ${buildMode} --project ./src/
+dotnet clean -c ${buildMode}; dotnet restore; dotnet build --no-restore -c ${buildMode}
+
+if [$runApp -eq 1] then
+  dotnet run -c ${buildMode} --project ./src/
+fi
