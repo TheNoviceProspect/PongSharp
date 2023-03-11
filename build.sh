@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-if [ $# -eq 0 ]; then
-    export buildMode="Debug"
-    export runApp=0
-fi
+export runApp=0
+export buildMode="Debug"
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -29,8 +27,9 @@ echo "Restoring Nuget packages and dependencies ..."
 dotnet restore
 echo "Building \"${buildMode}\" configuration ..."
 dotnet build --no-restore -c ${buildMode}
-
-if [ $runApp -eq 1 ]; then
+if [ "$runApp" -eq 1 ]; then
   echo "Running the app in \"${buildMode}\" mode ..."
   dotnet run -c ${buildMode} --project ./src/
+else
+  echo "Skipping running the app in \"${buildMode}\" mode ..."
 fi
