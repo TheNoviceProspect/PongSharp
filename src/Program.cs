@@ -21,7 +21,7 @@ namespace PongSharp.App
         private const int MAX_FPS = 60;
         private const int MIN_WIDTH = 800;
         private const int MIN_HEIGHT =600;
-private const int DEFAULT_WIDTH = 1280;
+	    private const int DEFAULT_WIDTH = 1280;
         private const int DEFAULT_HEIGHT = 720;
 
         private const int LOGO_WAIT_TIME = 5;
