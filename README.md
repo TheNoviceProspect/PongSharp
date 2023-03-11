@@ -18,3 +18,5 @@ On Linux : `./build.sh -buildMode "Debug"` or `./build.sh -buildMode "Release"`
 On Windows : `./build.ps1 -buildMode "Debug"` or `./build.ps1 -buildMode "Release"`
 
 If you ommit the `-buildMode` parameter the scripts will assume "Debug" builds
+
+You can also add the `-run` parameter to the build script and the app just starts right after a successful build in the same mode as above.
