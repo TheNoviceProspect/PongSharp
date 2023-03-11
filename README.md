@@ -14,7 +14,7 @@ Please remember that I am a hobbyist trying his hand at progamming, not an actua
 
 Clone this repository, and then run
 
-On Linux : `./build.sh -buildMode "Debug"` or `./build.sh -buildMode "Release"` 
+On Linux : `./build.sh -buildMode "Debug"` or `./build.sh -buildMode "Release"`  
 On Windows : `./build.sh -buildMode "Debug"` or `./build.sh -buildMode "Release"`
 
 If you ommit the `-buildMode` parameter the scripts will assume "Debug" builds
