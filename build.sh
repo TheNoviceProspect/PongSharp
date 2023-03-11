@@ -23,8 +23,14 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-dotnet clean -c ${buildMode}; dotnet restore; dotnet build --no-restore -c ${buildMode}
+echo "Cleaning \"${buildMode}\" build directory ..."
+dotnet clean -c ${buildMode}
+echo "Restoring Nuget packages and dependencies ..."
+dotnet restore
+echo "Building \"${buildMode}\" configuration ..."
+dotnet build --no-restore -c ${buildMode}
 
-if [[$runApp -eq 1]]; then
+if [ $runApp -eq 1 ]; then
+  echo "Running the app in \"${buildMode}\" mode ..."
   dotnet run -c ${buildMode} --project ./src/
 fi
