@@ -25,6 +25,6 @@ done
 
 dotnet clean -c ${buildMode}; dotnet restore; dotnet build --no-restore -c ${buildMode}
 
-if [$runApp -eq 1] then
+if [[$runApp -eq 1]]; then
   dotnet run -c ${buildMode} --project ./src/
 fi
