@@ -5,30 +5,27 @@ using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
 using static Raylib_cs.ConfigFlags;
 
+
 namespace PongSharp.App
 {
     class Program
     {
-        enum GameScreen
-        {
-            Logo = 0,
-            Title,
-            Gameplay,
-            Ending
-        }
+        
 
         private const string APPMSG_START = "Pong# is starting up ...";
-        private const int MAX_FPS = 60;
+        internal const int MAX_FPS = 60;
         private const int MIN_WIDTH = 800;
-        private const int MIN_HEIGHT =600;
+        private const int MIN_HEIGHT = 600;
 	    private const int DEFAULT_WIDTH = 1280;
         private const int DEFAULT_HEIGHT = 720;
 
-        private const int LOGO_WAIT_TIME = 5;
+        internal static bool shouldClose = false;
 
-        private static GameScreen _currentScreen = GameScreen.Logo;
-        private static GameScreen _previousScreen = GameScreen.Logo;
-        private static Vector2 DefaultScreenDimension = new Vector2(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
+
+        internal static GameScreens.GameScreen _currentScreen = GameScreens.GameScreen.Logo;
+        internal static GameScreens.GameScreen _previousScreen = GameScreens.GameScreen.Logo;
+        internal static Vector2 DefaultScreenDimension = new Vector2(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         private static Vector2 MinScreenDimension = new Vector2(MIN_WIDTH, MIN_HEIGHT);
         private static ulong _frameCounter = 0;
 
@@ -36,48 +33,35 @@ namespace PongSharp.App
         {
             AppLog.SetCustomLogger("<Pong# Logger>");
             TraceLog(TraceLogLevel.LOG_TRACE, APPMSG_START);
-            InitWindow((int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, "Pong#");
-            SetWindowMinSize((int)MinScreenDimension.X, (int)MinScreenDimension.Y);
             SetConfigFlags(FLAG_WINDOW_RESIZABLE|FLAG_VSYNC_HINT);
             SetTargetFPS(MAX_FPS);
             SetExitKey(KeyboardKey.KEY_NULL);
+            InitWindow((int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, "Pong#");
+            SetWindowMinSize((int)MinScreenDimension.X, (int)MinScreenDimension.Y);
         }
 
         static void DrawGameScreen()
         {
             switch (_currentScreen)
             {
-                case GameScreen.Logo:
+                case GameScreens.GameScreen.Logo:
                     {
-                        // TODO: Draw LOGO screen here!
-                        DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-                        DrawText($"WAIT for {LOGO_WAIT_TIME-_frameCounter/60} SECONDS...", 200, 100, 20, WHITE);
+                        GameScreens.DrawScreenLogo(ref _frameCounter);
                     }
                     break;
-                case GameScreen.Title:
+                case GameScreens.GameScreen.Title:
                     {
-                        // TODO: Draw TITLE screen here!
-                        DrawRectangle(0, 0, (int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, GREEN);
-                        DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-                        DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+                        GameScreens.DrawScreenTitle(_frameCounter);
                     }
                     break;
-                case GameScreen.Gameplay:
+                case GameScreens.GameScreen.Gameplay:
                     {
-                        // TODO: Draw GAMEPLAY screen here!
-                        DrawRectangle(0, 0, (int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, PURPLE);
-                        DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-                        DrawText("PRESS ENTER or TAP to JUMP to TITLE SCREEN", 130, 220, 20, MAROON);
+                        GameScreens.DrawScreenGameplay(_frameCounter);
                     }
                     break;
-                case GameScreen.Ending:
+                case GameScreens.GameScreen.Ending:
                     {
-                        // TODO: Draw ENDING screen here!
-                        DrawRectangle(0, 0, (int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, BLUE);
-                        //DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-                        //DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
-                        DrawRectangle(0, 100, (int)DefaultScreenDimension.X, 200, BLACK);
-                        DrawText("Are you sure you want to exit program? [Y/N]", 40, 180, 30, WHITE);
+                        GameScreens.DrawScreenEnding(_frameCounter);
                     }
                     break;
                 default:
@@ -87,41 +71,28 @@ namespace PongSharp.App
 
         static void Main(string[] args)
         {
-            bool callExit = false;
             initApp();
-            while (!callExit) {
+            while (!shouldClose) {
                 switch (_currentScreen)
                 {
-                    case GameScreen.Logo:
+                    case GameScreens.GameScreen.Logo:
                         {
-                            _frameCounter++;    // Count frames
-                            if (_frameCounter > LOGO_WAIT_TIME*60) // <- wait for 2 seconds
-                            {
-                                _currentScreen = GameScreen.Title;
-                            }
+                            GameScreens.HandleScreenLogo(ref _frameCounter);
                         }
                         break;
-                    case GameScreen.Title:
+                    case GameScreens.GameScreen.Title:
                         {
-                            _previousScreen = GameScreen.Title;
-                            if (WindowShouldClose() || IsKeyPressed(KeyboardKey.KEY_ESCAPE)) _currentScreen = GameScreen.Ending;
-                            if (IsKeyPressed(KeyboardKey.KEY_ENTER)) _currentScreen = GameScreen.Gameplay;
+                            GameScreens.HandleScreenTitle(ref _frameCounter);
                         }
                         break;
-                    case GameScreen.Gameplay:
+                    case GameScreens.GameScreen.Gameplay:
                         {
-                            _previousScreen = GameScreen.Gameplay;
-                            if (WindowShouldClose() || (IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL) && (IsKeyPressed(KeyboardKey.KEY_Q)))) _currentScreen = GameScreen.Ending;
-                            if (IsKeyPressed(KeyboardKey.KEY_ESCAPE)) _currentScreen = GameScreen.Title;
+                            GameScreens.HandleScreenGameplay(ref _frameCounter);
                         }
                         break;
-                    case GameScreen.Ending:
+                    case GameScreens.GameScreen.Ending:
                         {
-                            if (IsKeyPressed(KeyboardKey.KEY_Y)) callExit = true;
-                            else if (IsKeyPressed(KeyboardKey.KEY_N)) {
-                                callExit = false;
-                                _currentScreen = _previousScreen;                            
-                            }
+                            GameScreens.HandleScreenEnding(ref _frameCounter);
                         }
                         break;
                     default:
