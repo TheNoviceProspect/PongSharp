@@ -2,7 +2,8 @@
 {
     class Program
     {
-        private const string APPMSG_START = "Pong# is starting up ...";
+	private const string APP_TITLE = "PongSharp";
+        private const string APPMSG_START = $"{APP_TITLE} is starting up ...";
         internal const int MAX_FPS = 60;
         private const int MIN_WIDTH = 800;
         private const int MIN_HEIGHT = 600;
@@ -19,17 +20,30 @@
         private static Vector2 MinScreenDimension = new Vector2(MIN_WIDTH, MIN_HEIGHT);
         private static ulong _frameCounter = 0;
 
+        /// <summary>
+        /// Initialize the Logger and raylib window
+        /// </summary>
         static void initApp()
         {
-            AppLog.SetCustomLogger("<Pong# Logger>");
+            // setup custom logger
+            AppLog.SetCustomLogger($"<{APP_TITLE} Logger>");
+            // output a start message to the logger
             TraceLog(TraceLogLevel.LOG_TRACE, APPMSG_START);
+            // make window resizable
             SetConfigFlags(FLAG_WINDOW_RESIZABLE|FLAG_VSYNC_HINT);
+            // set target fps for window (and delta-v calculations)
             SetTargetFPS(MAX_FPS);
+            // make sure alt+f4 does not close the window, we handle this ourselves
             SetExitKey(KeyboardKey.KEY_NULL);
-            InitWindow((int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, "Pong#");
+            // open the window with our default dimensions
+            InitWindow((int)DefaultScreenDimension.X, (int)DefaultScreenDimension.Y, $"{APP_TITLE}");
+            // make sure the window has a fixed minimum size
             SetWindowMinSize((int)MinScreenDimension.X, (int)MinScreenDimension.Y);
         }
 
+        /// <summary>
+        /// This selects a gamescreen based on _currentGameScreen
+        /// </summary>
         static void DrawGameScreen()
         {
             switch (_currentScreen)
@@ -59,10 +73,16 @@
             }
         }
 
+        /// <summary>
+        /// This is a) the main entry point as well as the place where the main game loop runs
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             initApp();
+            // exit has not been requested
             while (!shouldClose) {
+                // check which screen we're on and run the correct "handler"
                 switch (_currentScreen)
                 {
                     case GameScreens.GameScreen.Logo:
