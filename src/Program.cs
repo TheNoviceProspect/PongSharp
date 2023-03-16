@@ -7,7 +7,7 @@
         internal const int MAX_FPS = 60;
         private const int MIN_WIDTH = 800;
         private const int MIN_HEIGHT = 600;
-	    private const int DEFAULT_WIDTH = 1280;
+	private const int DEFAULT_WIDTH = 1280;
         private const int DEFAULT_HEIGHT = 720;
 
         internal static bool shouldClose = false;
@@ -28,7 +28,7 @@
             // setup custom logger
             AppLog.SetCustomLogger($"<{APP_TITLE} Logger>");
             // output a start message to the logger
-            TraceLog(TraceLogLevel.LOG_TRACE, APPMSG_START);
+    	    TraceLog(TraceLogLevel.LOG_INFO, APPMSG_START);            
             // make window resizable
             SetConfigFlags(FLAG_WINDOW_RESIZABLE|FLAG_VSYNC_HINT);
             // set target fps for window (and delta-v calculations)
